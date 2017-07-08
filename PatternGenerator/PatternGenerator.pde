@@ -7,7 +7,7 @@
 //in pixels (should be mm in the future)
 
 //these are constants for the experiment
-float spacing = 100; //width between center of two strips, in pixels
+float spacing = 150; //width between center of two strips, in pixels
 float distance = 10; //distance between two strips, in pixels 
 //should be dynamic, somehow, because its effected by angle
 
@@ -44,15 +44,29 @@ void setup() {
 
   drawStripA(1);
   drawStripB(2);
-   drawStripA(3);
-    drawStripB(4);
-    drawStripA(5);
+  drawStripA(3);
+  drawStripB(4);
+  drawStripA(5);
+}
+
+
+void draw() {
+background(220,250,255);
+
+// needs to be live if dynamic UI
+
+globalOffset = 0;
+  drawStripA(1);
+  drawStripB(2);
+  drawStripA(3);
+  drawStripB(4);
+  drawStripA(5);
 }
 
 void drawStripA(int spikeNumber) {
-  
+
   adjustOffsetVariables(globalOffset);
-  
+
   pushMatrix(); //remember global origin
   translate(spikeNumber*spacing, 5);
 
@@ -61,9 +75,9 @@ void drawStripA(int spikeNumber) {
   drawSpikeRowLeft();//loop down, drawing negative spikes along left side //moves to endposition
   drawLastSpikeLeftA();
   popMatrix(); 
-  
+
   adjustOffsetVariables(globalOffset+effectiveOffset);
- 
+
   pushMatrix(); //remember local origin
   closeTop();
   drawFirstSpikeRightA();
@@ -77,9 +91,9 @@ void drawStripA(int spikeNumber) {
 
 
 void drawStripB(int spikeNumber) {
-  
+
   adjustOffsetVariables(globalOffset);
-  
+
   pushMatrix(); //remember global origin
   translate(spikeNumber*spacing, 5);
 
@@ -89,9 +103,9 @@ void drawStripB(int spikeNumber) {
   drawSpikeRowLeft();//loop down, drawing negative spikes along left side //moves to endposition
   drawLastSpikeLeftB();
   popMatrix(); 
-  
+
   adjustOffsetVariables(globalOffset-effectiveOffset);
- 
+
   pushMatrix(); //remember local origin
   drawFirstSpikeRightB();
   drawSpikeRowRight();//loop down, drawing negative spikes along left side //moves to endposition

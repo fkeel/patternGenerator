@@ -7,14 +7,14 @@
 //in pixels (should be mm in the future)
 
 //these are constants for the experiment
-float spacing = 150; //width between center of two strips, in pixels
-float distance = 10; //distance between two strips, in pixels 
+float spacing = 80; //width between center of two strips, in pixels
+float distance = 20; //distance between two strips, in pixels 
 //should be dynamic, somehow, because its effected by angle
 
 //in percentage of spacing
-float spikeWidth = 40; // larger numbers = less spikes, in percent of spacing
-float stripSpikeRatio = 80; //ratio between size of strip to size of spike, larger numbers = larger spikes
-float offset = 75; //alignment between left and right side, percentage of spike width. 0 = no offset 100 = max offset
+float spikeWidth = 30; // larger numbers = less spikes, in percent of spacing
+float stripSpikeRatio = 85; //ratio between size of strip to size of spike, larger numbers = larger spikes
+float offset = 50; //alignment between left and right side, percentage of spike width. 0 = no offset 100 = max offset
 
 //Experiment Condition
 //spikeWidth (3) * stripSpikeRatio (4) * offset (3) = 48 sensors + Special case
@@ -36,17 +36,13 @@ void setup() {
   println("effectiveSpikeHeight: " + effectiveSpikeHeight);
   println("effectiveSpikeWidth: " + effectiveSpikeWidth);
   //  println("
-  size (1200, 510);
+  size (1200, 700);
 
-  spikeCount = int((height-10)/effectiveSpikeWidth); //how many spikes fit on a strip
+  spikeCount = int(480/effectiveSpikeWidth); //how many spikes fit on a strip
 
 
 
-  drawStripA(1);
-  drawStripB(2);
-  drawStripA(3);
-  drawStripB(4);
-  drawStripA(5);
+
 }
 
 
@@ -54,63 +50,13 @@ void draw() {
 background(220,250,255);
 
 // needs to be live if dynamic UI
-
+translate(200,200);
 globalOffset = 0;
-  drawStripA(1);
+  drawFirstStripA(1);
   drawStripB(2);
   drawStripA(3);
   drawStripB(4);
-  drawStripA(5);
-}
-
-void drawStripA(int spikeNumber) {
-
-  adjustOffsetVariables(globalOffset);
-
-  pushMatrix(); //remember global origin
-  translate(spikeNumber*spacing, 5);
-
-  pushMatrix(); //remember local origin
-  drawFirstSpikeLeftA(); //draws the spike and moves endposition
-  drawSpikeRowLeft();//loop down, drawing negative spikes along left side //moves to endposition
-  drawLastSpikeLeftA();
-  popMatrix(); 
-
-  adjustOffsetVariables(globalOffset+effectiveOffset);
-
-  pushMatrix(); //remember local origin
-  closeTop();
-  drawFirstSpikeRightA();
-  drawSpikeRowRight();//loop down, drawing negative spikes along left side //moves to endposition
-  drawLastSpikeRightA();
-  popMatrix();//go back to local origin
-
-  popMatrix(); //go back to global origin
-}
-
-
-
-void drawStripB(int spikeNumber) {
-
-  adjustOffsetVariables(globalOffset);
-
-  pushMatrix(); //remember global origin
-  translate(spikeNumber*spacing, 5);
-
-  pushMatrix(); //remember local origin
-  closeTop();
-  drawFirstSpikeLeftB(); //draws the spike and moves endposition
-  drawSpikeRowLeft();//loop down, drawing negative spikes along left side //moves to endposition
-  drawLastSpikeLeftB();
-  popMatrix(); 
-
-  adjustOffsetVariables(globalOffset-effectiveOffset);
-
-  pushMatrix(); //remember local origin
-  drawFirstSpikeRightB();
-  drawSpikeRowRight();//loop down, drawing negative spikes along left side //moves to endposition
-  drawLastSpikeRightB();
-  popMatrix();//go back to local origin
-
-  popMatrix(); //go back to global origin
+   drawStripA(5);
+  drawStripB(6);
+  drawLastStripA(7);
 }

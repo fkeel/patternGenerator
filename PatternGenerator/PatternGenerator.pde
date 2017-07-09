@@ -7,7 +7,7 @@
 //in pixels (should be mm in the future)
 
 //these are constants for the experiment
-float spacing = 80; //width between center of two strips, in pixels
+float spacing = 100; //width between center of two strips, in pixels
 float distance = 10; //distance between two strips, in pixels 
 //should be dynamic, somehow, because its effected by angle
 
@@ -26,7 +26,7 @@ float effectiveSpikeHeight = effectiveWidth * stripSpikeRatio / 100;
 float effectiveBlockWIdth = effectiveWidth * (100 - stripSpikeRatio) / 100;
 float effectiveOffset = effectiveSpikeWidth/2*offset / 100;
 float effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //this is adjusted by  recalculateOffsetValues(); // neet to calculate the dimensions of split triangle
-int spikeCount; //number of spikes per strip
+float spikeCount; //number of spikes per strip
 float globalOffset = 0;
 
 
@@ -45,7 +45,7 @@ void setup() {
   println("effectiveSpikeHeight: " + effectiveSpikeHeight);
   println("effectiveSpikeWidth: " + effectiveSpikeWidth);
   //  println("
-  size (1200, 900);
+  size (1200, 1000);
 
   spikeCount = int(480/effectiveSpikeWidth); //how many spikes fit on a strip
 
@@ -58,8 +58,8 @@ void setup() {
   setOffset = new Slider("Offset:o");
 
   setSpacing.assignRange(50, 150);
-  setDistance.assignRange(0, 50);
-  setSpikeWidth.assignRange(0, 100);
+  setDistance.assignRange(0, 35);
+  setSpikeWidth.assignRange(0, 200);
   setRatio.assignRange(0, 100);
   setOffset.assignRange(0, 100);
   textSize(15);
@@ -90,12 +90,12 @@ stroke(240, 240, 240);
   effectiveBlockWIdth = effectiveWidth * (100 - stripSpikeRatio) / 100;
   effectiveOffset = effectiveSpikeWidth/2*offset / 100;
   effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //this is adjusted by  recalculateOffsetValues(); // neet to calculate the dimensions of split triangle
-  spikeCount = int(480/effectiveSpikeWidth); //how many spikes fit on a strip
+  spikeCount = (480/effectiveSpikeWidth); //how many spikes fit on a strip
   globalOffset = 0;
 
 
   // needs to be live if dynamic UI
-translate(100,300);
+translate(50,300);
 
 
 stroke(0);

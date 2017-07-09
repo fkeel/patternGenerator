@@ -60,7 +60,7 @@ void setup() {
   setSpacing.assignRange(50, 150);
   setDistance.assignRange(0, 35);
   setSpikeWidth.assignRange(0, 200);
-  setRatio.assignRange(0, 100);
+  setRatio.assignRange(0, 100); //this could go beyond 100. Creates interesting patterns, but some othe rcode will need fixing
   setOffset.assignRange(0, 100);
   textSize(15);
 }

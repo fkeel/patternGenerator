@@ -9,6 +9,7 @@ public class Button {
   boolean state; 
   String buttonName; //name to be displayed
   char hotKey; //keyboard shortcut for toggling button
+  boolean readyForClick;
   boolean clicked; //only used internally to detect click
   boolean hotKeyHit; //only used internally to detect keyHit
   boolean checkMouse; //set false to deactivate mouse inptu
@@ -30,6 +31,7 @@ public class Button {
     buttonY = y;
     buttonWidth = w;
     buttonHeight = h;
+    readyForClick = false;
     String[] stringArray = splitTokens(nameShortcut, ":");
     if (stringArray.length != 2) {
       println("ERROR: Please format your buttons as \"ButtonName:Hotkey\" instead of \"" +nameShortcut+"\"");
@@ -52,6 +54,7 @@ public class Button {
     buttonY = 0;
     buttonWidth = 100;
     buttonHeight = 100;
+    readyForClick = false;
     String[] stringArray = splitTokens(nameShortcut, ":");
     if (stringArray.length != 2) {
       println("ERROR: Please format your buttons as \"ButtonName:Hotkey\" instead of \"" +nameShortcut+"\"");
@@ -81,7 +84,12 @@ public class Button {
   }
 
   void activateClick() {
-    if (mousePressed && hover()) {
+    //gotta check if another one is not still clicked
+    if (!mousePressed && hover()) {
+      readyForClick = true;
+    }
+    
+    if (mousePressed && hover() && readyForClick) {
       clicked = true;
     } 
 

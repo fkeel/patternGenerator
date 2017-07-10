@@ -1,4 +1,5 @@
 import processing.pdf.*;
+String feedback = "";
 
 
 //constrafloat function
@@ -91,6 +92,9 @@ stroke(240, 240, 240);
   setRatio.display(900, 250, 250, 40);
   setOffset.display(900, 300, 250, 40);
   createPDF.display(1000,350, 150, 40);
+  fill(0);
+  text(feedback, 800,450);
+  fill(255);
 
 //  spacing = setSpacing.getSliderValue();
   distance = setDistance.getSliderValue();
@@ -108,7 +112,7 @@ stroke(240, 240, 240);
  
  } else if (record) {
     // Note that #### will be replaced with the frame number. Fancy!
-    beginRecord(PDF, "frame-####.pdf"); 
+    beginRecord(PDF, "frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + ".pdf"); 
   }
  globalOffset = 0;
 
@@ -129,6 +133,7 @@ stroke(0);
 
   if (record) {
     println("Making PDF");
+    feedback = "created frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + ".pdf";
     endRecord();
   record = false;
     createPDF.setState(false);

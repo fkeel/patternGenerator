@@ -1,3 +1,5 @@
+import processing.pdf.*;
+
 
 //constrafloat function
 //--> calculate overlap 
@@ -72,6 +74,7 @@ void setup() {
 void draw() {
     background(240, 240, 240);
        if (createPDF.isToggled()) {
+         background(0,255,0);
      record = true;
   
   }
@@ -102,12 +105,12 @@ stroke(240, 240, 240);
   effectiveOffset = effectiveSpikeWidth/2*offset / 100;
   effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //this is adjusted by  recalculateOffsetValues(); // neet to calculate the dimensions of split triangle
   spikeCount = (480/effectiveSpikeWidth); //how many spikes fit on a strip
-  globalOffset = 0;
+ 
  } else if (record) {
     // Note that #### will be replaced with the frame number. Fancy!
     beginRecord(PDF, "frame-####.pdf"); 
   }
-
+ globalOffset = 0;
 
   // needs to be live if dynamic UI
 translate(50,300);
@@ -125,6 +128,7 @@ stroke(0);
   
 
   if (record) {
+    println("Making PDF");
     endRecord();
   record = false;
     createPDF.setState(false);
@@ -132,4 +136,3 @@ stroke(0);
 }
   
   
-}

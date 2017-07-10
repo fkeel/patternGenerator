@@ -9,9 +9,11 @@ void adjustOffsetVariables(float offsetMagnitude) {
   while (globalOffset > effectiveSpikeWidth/2) {
     globalOffset = globalOffset - effectiveSpikeWidth/2;
   }
+  /*
 println("------------------------------------------");
 println("globalOffset: " + globalOffset);
 println("effectiveOffset: " + effectiveOffset);
 println("effectiveXoffset: " + effectiveXoffset);
 println("------------------------------------------");
+*/
 }

@@ -29,6 +29,7 @@ float effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //t
 float spikeCount; //number of spikes per strip
 float globalOffset = 0;
 
+boolean record = false;
 
 
 ///////////////GUI Stuff////////////
@@ -37,6 +38,7 @@ Slider setDistance;
 Slider setSpikeWidth;
 Slider setRatio;
 Slider setOffset;
+Button createPDF;
 
 void setup() {
   println("effectiveOffset: " + effectiveOffset);
@@ -56,6 +58,7 @@ void setup() {
   setSpikeWidth = new Slider("SpikeWidth:w");
   setRatio = new Slider("Ratio:r");
   setOffset = new Slider("Offset:o");
+  createPDF = new Button("Create PDF: p");
 
   setSpacing.assignRange(50, 150);
   setDistance.assignRange(0, 35);
@@ -68,8 +71,15 @@ void setup() {
 
 void draw() {
     background(240, 240, 240);
+       if (createPDF.isToggled()) {
+     record = true;
+  
+  }
 
 stroke(240, 240, 240);
+ if (!record) {
+
+ 
   ///////////////GUI Stuff////////////
   //sliders take x & y coordinate as well as height and width
  // setSpacing.display(900, 100, 250, 40);
@@ -77,6 +87,7 @@ stroke(240, 240, 240);
   setSpikeWidth.display(900, 200, 250, 40);
   setRatio.display(900, 250, 250, 40);
   setOffset.display(900, 300, 250, 40);
+  createPDF.display(1000,350, 150, 40);
 
 //  spacing = setSpacing.getSliderValue();
   distance = setDistance.getSliderValue();
@@ -92,6 +103,10 @@ stroke(240, 240, 240);
   effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //this is adjusted by  recalculateOffsetValues(); // neet to calculate the dimensions of split triangle
   spikeCount = (480/effectiveSpikeWidth); //how many spikes fit on a strip
   globalOffset = 0;
+ } else if (record) {
+    // Note that #### will be replaced with the frame number. Fancy!
+    beginRecord(PDF, "frame-####.pdf"); 
+  }
 
 
   // needs to be live if dynamic UI
@@ -107,4 +122,14 @@ stroke(0);
   drawStripA(5);
   drawStripB(6);
   drawLastStripA(7);
+  
+
+  if (record) {
+    endRecord();
+  record = false;
+    createPDF.setState(false);
+  }
+}
+  
+  
 }

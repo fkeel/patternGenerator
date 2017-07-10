@@ -11,26 +11,28 @@ public class Slider extends Button {
   int sliderMin;
   int sliderMax;
 
+
   Slider(String nameShortcut, int x, int y, int w, int h ) { //its built the same way, just we add a min and max value
     super(nameShortcut, x, y, w, h);
     sliderValue = 0;
     sliderMin = 0;
     sliderMax = 0;
-    
   }
 
   //constructor without position
   Slider(String nameShortcut) {
     super(nameShortcut);
+    sliderValue = 0;
+    sliderMin = 0;
+    sliderMax = 0;
   }
 
   void assignRange(int min, int max) { //we tell the slider what its range is here
     sliderMin = min;
     sliderMax = max;
     sliderValue = max-min/2;
-    sliderPosition = buttonX+int((random(buttonWidth/2,buttonWidth*2))); //random to put it into interesting starting positions
+    sliderPosition = buttonX+int((random(buttonWidth/2, buttonWidth*2))); //random to put it into interesting starting positions
     //there is some strange bug here, its as if I took the button width double at some point
-   
   }
 
   void display() {
@@ -45,11 +47,33 @@ public class Slider extends Button {
     stroke(255);
     rect(buttonX+sliderPosition-3, buttonY, 6, buttonHeight);
   }
-  
-// not sure what to use the keyboard shortct for. kinda pointless here
+
+  // not sure what to use the keyboard shortct for. kinda pointless here
+  //I changed it around, so the curser can drift out of the slider
   void activateClick() { //instead of toggling, we move the slider
-    if (mousePressed && super.hover()) {
-     sliderPosition = mouseX - buttonX;
+
+    if (!mousePressed && super.hover()) {
+      readyForClick = true;
+    } else if (!mousePressed) {
+      readyForClick = false;
+    }
+
+    if (mousePressed &&  readyForClick) {
+     
+      if (mouseX>buttonX && mouseX < buttonX+buttonWidth) {
+         if ((mouseY<buttonY) || (mouseY> buttonY+buttonHeight)) {
+        fill(0);
+      } else {
+        fill(255);
+      }
+
+        sliderPosition = mouseX - buttonX;
+        text(str(this.getSliderValue()), mouseX+10, mouseY + 10); //add the value, so you know what you're doing
+      }
+      fill(255);
+
+
+      clicked = true;
     }
   }
 
@@ -58,5 +82,3 @@ public class Slider extends Button {
     return sliderValue;
   }
 }
-
- 

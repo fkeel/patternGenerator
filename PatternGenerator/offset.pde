@@ -1,3 +1,5 @@
+//this recalculates som variable required for making the cut-off spikes
+
 void adjustOffsetVariables(float offsetMagnitude) {
 
   globalOffset = offsetMagnitude;

@@ -65,7 +65,7 @@ void setup() {
   setSpikeWidth = new Slider("SpikeWidth:w");
   setRatio = new Slider("Ratio:r");
   setOffset = new Slider("Offset:o");
-  createPDF = new Button("Create PDF: p");
+  createPDF = new Button("Create PDF:p");
 
   setSpacing.assignRange(50, 150);
   setDistance.assignRange(0, 35);

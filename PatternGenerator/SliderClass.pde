@@ -1,4 +1,9 @@
 
+//TODO: needs a 'void setSliderValue(int x)' function
+//needs some method of entering a precise value by keyboard
+//maybe also constraining it to certain step sizes (using integer instead of float might already fix stuff
+
+
 //a slider is a button that does not toggle, instead it returns a value
 public class Slider extends Button {
   float sliderValue;
@@ -31,7 +36,7 @@ public class Slider extends Button {
   void display() {
     super.display();
     stroke(255);
-    rect(sliderPosition-3, buttonY, 6, buttonHeight);
+    rect(sliderPosition-3, buttonY, 6, buttonHeight); //add the position indicator object to the slider
   }
 
   //alternate constructor, if we want to give it new coordinates
@@ -47,7 +52,6 @@ public class Slider extends Button {
      sliderPosition = mouseX - buttonX;
     }
   }
-
 
   float getSliderValue() { //here we ask what its value is
     sliderValue = map(sliderPosition, 0, buttonWidth, sliderMin, sliderMax);

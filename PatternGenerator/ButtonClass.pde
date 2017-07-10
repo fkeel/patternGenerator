@@ -1,9 +1,5 @@
 //this is just here so we can re-use it for the sliders
 
-
-// this is work in (very slow) progress.
-//I started writing this, because I did not like the existing GUI libraries
-
 //buttons must be initialzied
 //once drawn, buttons track if they are toggled or not
 //you can toggle by clicking or by using the hotkey

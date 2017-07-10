@@ -1,19 +1,32 @@
+//By Paul Strohmeier based on Discussions with Cedric Honnet & Maurin Donneaud
+
+//-------------------Making the .pdf--------------------//
 import processing.pdf.*;
+boolean record = false;
 
 
-//constrafloat function
-//--> calculate overlap 
-//--> calculate optimal sensor for constrafloats
+//-------------------Meta Functions (in mm)--------------------------------//
+/*these don't exist yet, but we could do something interesting 
+ using the results of the evaluation. For example:
+ - If I have 6 analog inputs, can tolerate errors of up to 5mm and 
+ expect the sensor to be touched by fingers, how large can I make my sensor?
+ 
+ - I want a 1m by 1m sensor that can tolerate errors of up to 2mm and 
+ expects touch by fingers, how many analog inputs do I need?
+ 
+ - I have 16 analog Inputs and am measuring footsteps
+ in a carpet that is 3m by 6m. Whats the maximum error I should expect?
+ */
 
-//User Input (either percentage or pixels)
-//in pixels (should be mm in the future)
 
-//these are constants for the experiment
+//-------------------User defined Variables---------------------------------//
+
+//-----------------constraints (in pixels)
 float spacing = 100; //width between center of two strips, in pixels
 float distance = 10; //distance between two strips, in pixels 
-//should be dynamic, somehow, because its effected by angle
+//should be dynamic, somehow, because its effected by angle (if kept static spacing dictates overlap)
 
-//in percentage of spacing
+//-----------------variables (in percentage of spacing)
 float spikeWidth = 50; // larger numbers = less spikes, in percent of spacing
 float stripSpikeRatio = 80; //ratio between size of strip to size of spike, larger numbers = larger spikes
 float offset = 00; //alignment between left and right side, percentage of spike width. 0 = no offset 100 = max offset
@@ -21,7 +34,8 @@ float offset = 00; //alignment between left and right side, percentage of spike 
 //Experiment Condition
 //spikeWidth (3) * stripSpikeRatio (4) * offset (3) = 48 sensors + Special case
 
-//Variables used floaternally (in pixels)
+
+//-------------------Internally used Variables (in pixels)--------------------//
 float effectiveWidth = spacing - distance; 
 float effectiveSpikeWidth = spacing * spikeWidth / 100;
 float effectiveSpikeHeight = effectiveWidth * stripSpikeRatio / 100;
@@ -31,30 +45,21 @@ float effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //t
 float spikeCount; //number of spikes per strip
 float globalOffset = 0;
 
-boolean record = false;
 
-
-///////////////GUI Stuff////////////
+//-------------------GUI Stuff--------------------//
 Slider setSpacing;
 Slider setDistance;
 Slider setSpikeWidth;
 Slider setRatio;
 Slider setOffset;
 Button createPDF;
+String feedback = "";
+
 
 void setup() {
-  println("effectiveOffset: " + effectiveOffset);
-  println("globalOffset: " + globalOffset);
-  println("effectiveXoffset: " + effectiveXoffset);
-  println("effectiveSpikeHeight: " + effectiveSpikeHeight);
-  println("effectiveSpikeWidth: " + effectiveSpikeWidth);
-  //  println("
   size (1200, 1000);
 
-  spikeCount = int(480/effectiveSpikeWidth); //how many spikes fit on a strip
-
-
-  ///////////////GUI Stuff////////////
+  //-------------------GUI Stuff--------------------//
   setSpacing = new Slider("Spacing:s");
   setDistance = new Slider("Distance:d");
   setSpikeWidth = new Slider("SpikeWidth:w");
@@ -72,67 +77,76 @@ void setup() {
 
 
 void draw() {
-    background(240, 240, 240);
-       if (createPDF.isToggled()) {
-         background(0,255,0);
-     record = true;
+  background(240, 240, 240);
   
+  if (createPDF.isToggled()) {
+    background(0, 255, 0);
+    record = true;
   }
 
-stroke(240, 240, 240);
- if (!record) {
+  stroke(240, 240, 240);
+  if (!record) { //skip this bit when recording to pdf
 
- 
-  ///////////////GUI Stuff////////////
-  //sliders take x & y coordinate as well as height and width
- // setSpacing.display(900, 100, 250, 40);
-  setDistance.display(900, 150, 250, 40);
-  setSpikeWidth.display(900, 200, 250, 40);
-  setRatio.display(900, 250, 250, 40);
-  setOffset.display(900, 300, 250, 40);
-  createPDF.display(1000,350, 150, 40);
-
-//  spacing = setSpacing.getSliderValue();
-  distance = setDistance.getSliderValue();
-  spikeWidth = setSpikeWidth.getSliderValue();
-  stripSpikeRatio = setRatio.getSliderValue();
-  offset = setOffset.getSliderValue();
-
-  effectiveWidth = spacing - distance; 
-  effectiveSpikeWidth = spacing * spikeWidth / 100;
-  effectiveSpikeHeight = effectiveWidth * stripSpikeRatio / 100;
-  effectiveBlockWIdth = effectiveWidth * (100 - stripSpikeRatio) / 100;
-  effectiveOffset = effectiveSpikeWidth/2*offset / 100;
-  effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //this is adjusted by  recalculateOffsetValues(); // neet to calculate the dimensions of split triangle
-  spikeCount = (480/effectiveSpikeWidth); //how many spikes fit on a strip
- 
- } else if (record) {
-    // Note that #### will be replaced with the frame number. Fancy!
-    beginRecord(PDF, "frame-####.pdf"); 
+    ///////////////GUI Stuff////////////
+    //sliders take x & y coordinate as well as height and width
+    //setSpacing.display(900, 100, 250, 40);
+    setDistance.display(900, 150, 250, 40);
+    setSpikeWidth.display(900, 200, 250, 40);
+    setRatio.display(900, 250, 250, 40);
+    setOffset.display(900, 300, 250, 40);
+    createPDF.display(1000, 350, 150, 40);
+    fill(0);
+    text(feedback, 800, 450);
+    fill(255);
+    
+    //get slider values:
+    //pacing = setSpacing.getSliderValue();
+    distance = setDistance.getSliderValue();
+    spikeWidth = setSpikeWidth.getSliderValue();
+    stripSpikeRatio = setRatio.getSliderValue();
+    offset = setOffset.getSliderValue();
+    
+    //recalculate strips based on GUI:
+    effectiveWidth = spacing - distance; 
+    effectiveSpikeWidth = spacing * spikeWidth / 100;
+    effectiveSpikeHeight = effectiveWidth * stripSpikeRatio / 100;
+    effectiveBlockWIdth = effectiveWidth * (100 - stripSpikeRatio) / 100;
+    effectiveOffset = effectiveSpikeWidth/2*offset / 100;
+    effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //this is adjusted by  recalculateOffsetValues(); // neet to calculate the dimensions of split triangle
+    spikeCount = (480/effectiveSpikeWidth); //how many spikes fit on a strip
+    
+  } else if (record) {
+    //start creating .pdf, filename contains parameters as defined here:
+    beginRecord(PDF, "frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + ".pdf");
   }
- globalOffset = 0;
+  
+  globalOffset = 0; //this needs to be reset to zero everytime a pattern is drawn, even when recording
 
-  // needs to be live if dynamic UI
-translate(50,300);
+  translate(50, 300); //move the sensor image into a nice position
 
+  stroke(0); //make lines black
 
-stroke(0);
+//The way I am doing this is kind of dumb.
+//I would prefer an object or a function that I tell 
+//"Make a sensor using X number of strips that has a width W and height H"
+// and use the above parameters for the pattern
+// this is just a hack to get it working and needs cleaning
 
-  drawFirstStripA(1);
+  drawFirstStripA(1); //the functions parameter moves the strip by multiplying it with the spacing
   drawStripB(2);
   drawStripA(3);
   drawStripB(4);
   drawStripA(5);
   drawStripB(6);
-  drawLastStripA(7);
-  
+  drawLastStripA(7); //right now it only supports uneven sensor numbers. I would also need a 'drawLastStripB' type function.
+// find the strips in the 'strip' tab at top. The details of how the spikes are generated are in the 'geometry' tab
+// the breakout is in the closeTop() function in the geometry tab
 
   if (record) {
     println("Making PDF");
-    endRecord();
-  record = false;
-    createPDF.setState(false);
+    feedback = "created frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + ".pdf";
+    endRecord(); //stop recording after one frame
+    record = false; //don't start a new one next time round
+    createPDF.setState(false); //needs to be set back or .pdfs will be created continuously
   }
 }
-  
-  

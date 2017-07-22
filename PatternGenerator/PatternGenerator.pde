@@ -169,7 +169,7 @@ void draw() {
 
   if (record) {
     println("Making PDF");
-    feedback = "created frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + ".pdf";
+    feedback = "created frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + "-scale"+scale+".pdf";
     endRecord(); //stop recording after one frame
     record = false; //don't start a new one next time round
     createPDF.setState(false); //needs to be set back or .pdfs will be created continuously

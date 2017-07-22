@@ -82,6 +82,10 @@ public class Button {
   boolean isToggled() {
     return state;
   }
+  
+  boolean getClicked(){
+    return clicked;
+  }
 
   void activateClick() {
     //gotta check if another one is not still clicked

@@ -61,11 +61,12 @@ void drawLastSpikeLeftB() {
 
 void closeTop(int multiplier) { //this also draws the breakouts
   //top border of block:
-  line (effectiveBlockWIdth, 0, effectiveBlockWIdth, -(15+distance)*multiplier);
+  line (effectiveBlockWIdth+effectiveXoffset, 0, effectiveBlockWIdth+effectiveXoffset, -(15+distance)*multiplier);
+ // stroke(255,0,0);
   line (0, 0, 0, -(15+distance)*(multiplier-1)-distance);
   pushMatrix();
   translate(effectiveBlockWIdth, -(15+distance)*multiplier);
-  line(0, 0, -15+(-spacing*multiplier), 0);
+  line(0+effectiveXoffset, 0, -15+(-spacing*multiplier), 0);
   line(-effectiveBlockWIdth, 15, -15+(-spacing*multiplier), 15);
   line(-15+(-spacing*multiplier), 0, -15+(-spacing*multiplier), 15);
   popMatrix();
@@ -74,19 +75,25 @@ void closeTop(int multiplier) { //this also draws the breakouts
 void drawFirstSpikeRightA() {
   //first spike, right side
   translate(effectiveBlockWIdth, 0);
-  line (0, 0, effectiveXoffset, 0);
+ // line (0, 0, effectiveXoffset, 0);
+ //stroke(0,0,255);
   line (effectiveXoffset, 0, 0, globalOffset);
-
+  breakOutVariable = effectiveXoffset;
+  println("xOffset" + effectiveXoffset);
+  println("globalOffset" + globalOffset);
+ stroke(00);
   //going down, right side
   translate(0, globalOffset);
 }
 
 void drawFirstSpikeRightB() {
+ // rect(0,0,5,5);
   translate(effectiveBlockWIdth, 0);
-  // stroke(200, 50, 50);
-
-  // line (0, 0, effectiveXoffset, 0);
-  line (effectiveXoffset, 0, effectiveSpikeHeight, globalOffset);
+ // rect(0,0,10,10);
+ //  stroke(200, 50, 50);
+   //strokeWeight(5);
+ line (breakOutVariable, 0, effectiveSpikeHeight, 0);
+ strokeWeight(1);
   //line(0, 0, effectiveSpikeHeight, effectiveSpikeWidth/2);
   line(effectiveSpikeHeight, globalOffset, 0, effectiveSpikeWidth/2+globalOffset);
 
@@ -109,7 +116,7 @@ void drawEndRight() {
   translate(effectiveBlockWIdth/2, 0);
   for (float i = 0; i < spikeCount; i++) {
     if (i == 0) {
-      line(effectiveBlockWIdth/2, 0, 0, effectiveSpikeWidth);
+      line(effectiveBlockWIdth/2+breakOutVariable, 0, 0, effectiveSpikeWidth);
       translate(0, effectiveSpikeWidth);
     } else {
       line(0, 0, 0, effectiveSpikeWidth);

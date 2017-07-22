@@ -10,6 +10,7 @@ public class Slider extends Button {
   int sliderPosition;
   int sliderMin;
   int sliderMax;
+  boolean active;
 
 
   Slider(String nameShortcut, int x, int y, int w, int h ) { //its built the same way, just we add a min and max value
@@ -17,6 +18,7 @@ public class Slider extends Button {
     sliderValue = 0;
     sliderMin = 0;
     sliderMax = 0;
+    active= false;
   }
 
   //constructor without position
@@ -25,6 +27,7 @@ public class Slider extends Button {
     sliderValue = 0;
     sliderMin = 0;
     sliderMax = 0;
+    active= false;
   }
 
   void assignRange(int min, int max) { //we tell the slider what its range is here
@@ -59,13 +62,13 @@ public class Slider extends Button {
     }
 
     if (mousePressed &&  readyForClick) {
-     
+      active= true;
       if (mouseX>buttonX && mouseX < buttonX+buttonWidth) {
-         if ((mouseY<buttonY) || (mouseY> buttonY+buttonHeight)) {
-        fill(0);
-      } else {
-        fill(255);
-      }
+        if ((mouseY<buttonY) || (mouseY> buttonY+buttonHeight)) {
+          fill(0);
+        } else {
+          fill(255);
+        }
 
         sliderPosition = mouseX - buttonX;
         text(str(this.getSliderValue()), mouseX+10, mouseY + 10); //add the value, so you know what you're doing
@@ -74,9 +77,14 @@ public class Slider extends Button {
 
 
       clicked = true;
+    } else {
+      active = false;
     }
   }
 
+  boolean isSliderActive() {
+    return active;
+  }
   float getSliderValue() { //here we ask what its value is
     sliderValue = map(sliderPosition, 0, buttonWidth, sliderMin, sliderMax);
     return sliderValue;

@@ -1,3 +1,4 @@
+
 //By Paul Strohmeier based on Discussions with Cedric Honnet & Maurin Donneaud
 
 //-------------------Making the .pdf--------------------//
@@ -45,6 +46,7 @@ float effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //t
 float spikeCount; //number of spikes per strip
 float globalOffset = 0;
 
+float breakOutVariable = 0; //because I am a bad programmer and can't figure it out. (used to make broader breakouts)
 
 //-------------------GUI Stuff--------------------//
 Slider setSpacing;
@@ -55,6 +57,14 @@ Slider setOffset;
 Button createPDF;
 String feedback = "";
 
+//-------------------Pan--------------------//
+int xPan;
+int yPan;
+int oldx;
+int oldy;
+int xCurrent;
+int yCurrent;
+boolean ready;
 
 void setup() {
   size (1200, 1000);
@@ -114,6 +124,17 @@ void draw() {
     effectiveOffset = effectiveSpikeWidth/2*offset / 100;
     effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //this is adjusted by  recalculateOffsetValues(); // neet to calculate the dimensions of split triangle
     spikeCount = (480/effectiveSpikeWidth); //how many spikes fit on a strip
+    
+  
+    
+    setSpikeWidth.display(900, 200, 250, 40);
+    setRatio.display(900, 250, 250, 40);
+    setOffset.display(900, 300, 250, 40);
+    createPDF.display(1000, 350, 150, 40);
+    
+  
+         pan();
+    
     
   } else if (record) {
     //start creating .pdf, filename contains parameters as defined here:

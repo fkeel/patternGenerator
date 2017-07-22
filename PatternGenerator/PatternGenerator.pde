@@ -1,6 +1,8 @@
 
 //By Paul Strohmeier based on Discussions with Cedric Honnet & Maurin Donneaud
 
+//Victor, here is the scaling variable:
+float scale = 0.8;
 //-------------------Making the .pdf--------------------//
 import processing.pdf.*;
 boolean record = false;
@@ -140,6 +142,8 @@ void draw() {
     //start creating .pdf, filename contains parameters as defined here:
     beginRecord(PDF, "frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + ".pdf");
   }
+    scale(scale, scale);
+
   
   globalOffset = 0; //this needs to be reset to zero everytime a pattern is drawn, even when recording
 

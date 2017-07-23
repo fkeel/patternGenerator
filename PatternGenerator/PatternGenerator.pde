@@ -30,8 +30,8 @@ float distance = 10; //distance between two strips, in pixels
 //should be dynamic, somehow, because its effected by angle (if kept static spacing dictates overlap)
 
 //-----------------variables (in percentage of spacing)
-float spikeWidth = 30; // larger numbers = less spikes, in percent of spacing
-float stripSpikeRatio = 50; //ratio between size of strip to size of spike, larger numbers = larger spikes
+float spikeWidth = 55; // larger numbers = less spikes, in percent of spacing
+float stripSpikeRatio = 70; //ratio between size of strip to size of spike, larger numbers = larger spikes
 float offset = 100; //alignment between left and right side, percentage of spike width. 0 = no offset 100 = max offset
 
 //Experiment Condition
@@ -69,8 +69,8 @@ int yCurrent;
 boolean ready;
 
 void setup() {
-  strokeWeight(0.1);
-  size (1200, 1000);
+  strokeWeight(0.01);
+  size (650, 550);
 
   //-------------------GUI Stuff--------------------//
   //  setSpacing = new Slider("Spacing:s");
@@ -107,9 +107,9 @@ void draw() {
     //  setSpikeWidth.display(900, 200, 250, 40);
     //  setRatio.display(900, 250, 250, 40);
     //  setOffset.display(900, 300, 250, 40);
-    createPDF.display(1000, 350, 150, 40);
+    createPDF.display(400, 500, 150, 40);
     fill(0);
-    text(feedback, 800, 450);
+    text(feedback, 10, 100);
     fill(255);
 
     //get slider values:
@@ -133,20 +133,21 @@ void draw() {
    // setSpikeWidth.display(900, 200, 250, 40);
    // setRatio.display(900, 250, 250, 40);
    // setOffset.display(900, 300, 250, 40);
-    createPDF.display(1000, 350, 150, 40);
+   // createPDF.display(400, 500, 150, 40);
 
 
     pan();
   } else if (record) {
+    println("recording");
     //start creating .pdf, filename contains parameters as defined here:
-    beginRecord(PDF, "frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + "-scale"+scale+".pdf");
+    beginRecord(PDF, "pattern-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + "-scale"+scale+".pdf");
   }
 
 
 
   globalOffset = 0; //this needs to be reset to zero everytime a pattern is drawn, even when recording
 
-  translate(50, 300); //move the sensor image into a nice position
+  translate(20, 125); //move the sensor image into a nice position
   scale(scale, scale);
 
   stroke(0); //make lines black

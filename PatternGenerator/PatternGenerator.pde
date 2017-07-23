@@ -140,7 +140,7 @@ void draw() {
     
   } else if (record) {
     //start creating .pdf, filename contains parameters as defined here:
-    beginRecord(PDF, "frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + ".pdf");
+    beginRecord(PDF, "frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + "-scale"+scale+".pdf");
   }
     
 

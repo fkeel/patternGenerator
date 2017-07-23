@@ -32,6 +32,7 @@ void drawSpikeRowLeft() {
 
 void drawBeginningLeft() {
   //maybe this should be set to be thicker? not divide widht by 2 (which is logical, but not practical)
+  //
   translate(+effectiveBlockWIdth/2, 0);
   for (float i = 0; i < spikeCount; i++) {
     if (i == 0) {

@@ -3,7 +3,7 @@ void pan() {
 
   translate(xPan, yPan);
   //re-adjusts visualization
-  if ( createPDF.hover() || setDistance.isSliderActive() || setSpikeWidth.isSliderActive() || setRatio.isSliderActive() || setOffset.isSliderActive()) {
+  if ( createPDF.hover()) {
     //nothing
   } else {
 

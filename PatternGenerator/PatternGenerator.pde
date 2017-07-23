@@ -73,18 +73,18 @@ void setup() {
   size (1200, 1000);
 
   //-------------------GUI Stuff--------------------//
-  setSpacing = new Slider("Spacing:s");
-  setDistance = new Slider("Distance:d");
-  setSpikeWidth = new Slider("SpikeWidth:w");
-  setRatio = new Slider("Ratio:r");
-  setOffset = new Slider("Offset:o");
+  //  setSpacing = new Slider("Spacing:s");
+  //  setDistance = new Slider("Distance:d");
+  // setSpikeWidth = new Slider("SpikeWidth:w");
+  // setRatio = new Slider("Ratio:r");
+  // setOffset = new Slider("Offset:o");
   createPDF = new Button("Create PDF:p");
 
-  setSpacing.assignRange(50, 150);
-  setDistance.assignRange(0, 35);
-  setSpikeWidth.assignRange(0, 200);
-  setRatio.assignRange(0, 100); //this could go beyond 100. Creates interesting patterns, but some othe rcode will need fixing
-  setOffset.assignRange(0, 100);
+  // setSpacing.assignRange(50, 150);
+  // setDistance.assignRange(0, 35);
+  // setSpikeWidth.assignRange(0, 200);
+  // setRatio.assignRange(0, 100); //this could go beyond 100. Creates interesting patterns, but some othe rcode will need fixing
+  // setOffset.assignRange(0, 100);
   textSize(15);
 }
 
@@ -103,10 +103,10 @@ void draw() {
     ///////////////GUI Stuff////////////
     //sliders take x & y coordinate as well as height and width
     //setSpacing.display(900, 100, 250, 40);
-    setDistance.display(900, 150, 250, 40);
-    setSpikeWidth.display(900, 200, 250, 40);
-    setRatio.display(900, 250, 250, 40);
-    setOffset.display(900, 300, 250, 40);
+    //  setDistance.display(900, 150, 250, 40);
+    //  setSpikeWidth.display(900, 200, 250, 40);
+    //  setRatio.display(900, 250, 250, 40);
+    //  setOffset.display(900, 300, 250, 40);
     createPDF.display(1000, 350, 150, 40);
     fill(0);
     text(feedback, 800, 450);
@@ -114,10 +114,10 @@ void draw() {
 
     //get slider values:
     //pacing = setSpacing.getSliderValue();
-    distance = setDistance.getSliderValue();
-    spikeWidth = setSpikeWidth.getSliderValue();
-    stripSpikeRatio = setRatio.getSliderValue();
-    offset = setOffset.getSliderValue();
+    //  distance = setDistance.getSliderValue();
+    //  spikeWidth = setSpikeWidth.getSliderValue();
+    //  stripSpikeRatio = setRatio.getSliderValue();
+    //  offset = setOffset.getSliderValue();
 
     //recalculate strips based on GUI:
     effectiveWidth = spacing - distance; 
@@ -130,9 +130,9 @@ void draw() {
 
 
 
-    setSpikeWidth.display(900, 200, 250, 40);
-    setRatio.display(900, 250, 250, 40);
-    setOffset.display(900, 300, 250, 40);
+   // setSpikeWidth.display(900, 200, 250, 40);
+   // setRatio.display(900, 250, 250, 40);
+   // setOffset.display(900, 300, 250, 40);
     createPDF.display(1000, 350, 150, 40);
 
 

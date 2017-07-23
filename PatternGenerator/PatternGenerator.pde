@@ -2,7 +2,7 @@
 //By Paul Strohmeier based on Discussions with Cedric Honnet & Maurin Donneaud
 
 //Victor, here is the scaling variable:
-float scale = 1.3;
+float scale = 0.8;
 //-------------------Making the .pdf--------------------//
 import processing.pdf.*;
 boolean record = false;

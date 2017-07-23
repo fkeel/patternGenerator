@@ -2,7 +2,7 @@
 //By Paul Strohmeier based on Discussions with Cedric Honnet & Maurin Donneaud
 
 //Victor, here is the scaling variable:
-float scale = 0.8;
+float scale = 1.2;
 //-------------------Making the .pdf--------------------//
 import processing.pdf.*;
 boolean record = false;
@@ -142,13 +142,14 @@ void draw() {
     //start creating .pdf, filename contains parameters as defined here:
     beginRecord(PDF, "frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + ".pdf");
   }
-    scale(scale, scale);
+    
 
   
   globalOffset = 0; //this needs to be reset to zero everytime a pattern is drawn, even when recording
 
   translate(50, 300); //move the sensor image into a nice position
-
+  scale(scale, scale);
+  
   stroke(0); //make lines black
 
 //The way I am doing this is kind of dumb.

@@ -32,17 +32,19 @@ void drawSpikeRowLeft() {
 
 void drawBeginningLeft() {
   //maybe this should be set to be thicker? not divide widht by 2 (which is logical, but not practical)
-  translate(+effectiveBlockWIdth/2, 0);
+  //
+  translate(-20, 0);
   for (float i = 0; i < spikeCount; i++) {
     if (i == 0) {
-      line(-effectiveBlockWIdth/2, 0, 0, effectiveSpikeWidth);
+      line(0, 0, 0, effectiveSpikeWidth);
+      line(0, 0, 20,0 );
       translate(0, effectiveSpikeWidth);
     } else {
       line(0, 0, 0, effectiveSpikeWidth);
       translate(0, effectiveSpikeWidth);
     }
   }
-  line(0, 0, effectiveBlockWIdth/2, 0);
+  line(0, 0, effectiveBlockWIdth+20, 0);
 }
 
 void drawLastSpikeLeftA() {
@@ -113,17 +115,19 @@ void drawSpikeRowRight() {
 }
 
 void drawEndRight() {
-  translate(effectiveBlockWIdth/2, 0);
+  translate(effectiveBlockWIdth+20, 0);
   for (float i = 0; i < spikeCount; i++) {
     if (i == 0) {
-      line(effectiveBlockWIdth/2+breakOutVariable, 0, 0, effectiveSpikeWidth);
+      line(0+breakOutVariable-20, 0, 0, effectiveSpikeWidth);
       translate(0, effectiveSpikeWidth);
     } else {
       line(0, 0, 0, effectiveSpikeWidth);
       translate(0, effectiveSpikeWidth);
     }
   }
-  line(0, 0, effectiveBlockWIdth/2, 0);
+
+  line(0, 0, -20, 0);
+ 
 }
 
 void drawLastSpikeRightA() {

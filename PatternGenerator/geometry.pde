@@ -93,7 +93,7 @@ void drawFirstSpikeRightB() {
  //  stroke(200, 50, 50);
    //strokeWeight(5);
  line (breakOutVariable, 0, effectiveSpikeHeight, 0);
- strokeWeight(1);
+ //strokeWeight(1);
   //line(0, 0, effectiveSpikeHeight, effectiveSpikeWidth/2);
   line(effectiveSpikeHeight, globalOffset, 0, effectiveSpikeWidth/2+globalOffset);
 

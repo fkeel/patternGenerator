@@ -69,6 +69,7 @@ int yCurrent;
 boolean ready;
 
 void setup() {
+  strokeWeight(0.1);
   size (1200, 1000);
 
   //-------------------GUI Stuff--------------------//
@@ -90,7 +91,7 @@ void setup() {
 
 void draw() {
   background(240, 240, 240);
-  
+
   if (createPDF.isToggled()) {
     background(0, 255, 0);
     record = true;
@@ -110,14 +111,14 @@ void draw() {
     fill(0);
     text(feedback, 800, 450);
     fill(255);
-    
+
     //get slider values:
     //pacing = setSpacing.getSliderValue();
     distance = setDistance.getSliderValue();
     spikeWidth = setSpikeWidth.getSliderValue();
     stripSpikeRatio = setRatio.getSliderValue();
     offset = setOffset.getSliderValue();
-    
+
     //recalculate strips based on GUI:
     effectiveWidth = spacing - distance; 
     effectiveSpikeWidth = spacing * spikeWidth / 100;
@@ -126,37 +127,35 @@ void draw() {
     effectiveOffset = effectiveSpikeWidth/2*offset / 100;
     effectiveXoffset = effectiveSpikeHeight / ((effectiveSpikeWidth/2)/0); //this is adjusted by  recalculateOffsetValues(); // neet to calculate the dimensions of split triangle
     spikeCount = (480/effectiveSpikeWidth); //how many spikes fit on a strip
-    
-  
-    
+
+
+
     setSpikeWidth.display(900, 200, 250, 40);
     setRatio.display(900, 250, 250, 40);
     setOffset.display(900, 300, 250, 40);
     createPDF.display(1000, 350, 150, 40);
-    
-  
-         pan();
-    
-    
+
+
+    pan();
   } else if (record) {
     //start creating .pdf, filename contains parameters as defined here:
     beginRecord(PDF, "frame-d" + distance + "-w" +spikeWidth+"-r"+stripSpikeRatio+"-o"+ offset + "-scale"+scale+".pdf");
   }
-    
 
-  
+
+
   globalOffset = 0; //this needs to be reset to zero everytime a pattern is drawn, even when recording
 
   translate(50, 300); //move the sensor image into a nice position
   scale(scale, scale);
-  
+
   stroke(0); //make lines black
 
-//The way I am doing this is kind of dumb.
-//I would prefer an object or a function that I tell 
-//"Make a sensor using X number of strips that has a width W and height H"
-// and use the above parameters for the pattern
-// this is just a hack to get it working and needs cleaning
+  //The way I am doing this is kind of dumb.
+  //I would prefer an object or a function that I tell 
+  //"Make a sensor using X number of strips that has a width W and height H"
+  // and use the above parameters for the pattern
+  // this is just a hack to get it working and needs cleaning
 
   drawFirstStripA(1); //the functions parameter moves the strip by multiplying it with the spacing
   drawStripB(2);
@@ -165,8 +164,8 @@ void draw() {
   drawStripA(5);
   drawStripB(6);
   drawLastStripA(7); //right now it only supports uneven sensor numbers. I would also need a 'drawLastStripB' type function.
-// find the strips in the 'strip' tab at top. The details of how the spikes are generated are in the 'geometry' tab
-// the breakout is in the closeTop() function in the geometry tab
+  // find the strips in the 'strip' tab at top. The details of how the spikes are generated are in the 'geometry' tab
+  // the breakout is in the closeTop() function in the geometry tab
 
   if (record) {
     println("Making PDF");

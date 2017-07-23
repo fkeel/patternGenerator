@@ -2,7 +2,7 @@
 //By Paul Strohmeier based on Discussions with Cedric Honnet & Maurin Donneaud
 
 //Victor, here is the scaling variable:
-float scale = 1.3;
+float scale = 1.2;
 //-------------------Making the .pdf--------------------//
 import processing.pdf.*;
 boolean record = false;
@@ -30,9 +30,9 @@ float distance = 10; //distance between two strips, in pixels
 //should be dynamic, somehow, because its effected by angle (if kept static spacing dictates overlap)
 
 //-----------------variables (in percentage of spacing)
-float spikeWidth = 50; // larger numbers = less spikes, in percent of spacing
-float stripSpikeRatio = 80; //ratio between size of strip to size of spike, larger numbers = larger spikes
-float offset = 00; //alignment between left and right side, percentage of spike width. 0 = no offset 100 = max offset
+float spikeWidth = 40; // larger numbers = less spikes, in percent of spacing
+float stripSpikeRatio = 100; //ratio between size of strip to size of spike, larger numbers = larger spikes
+float offset = 100; //alignment between left and right side, percentage of spike width. 0 = no offset 100 = max offset
 
 //Experiment Condition
 //spikeWidth (3) * stripSpikeRatio (4) * offset (3) = 48 sensors + Special case
